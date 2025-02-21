@@ -15,9 +15,6 @@ async function checkWeather(city) {
         const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
         const data = await response.json();
 
-        console.log(response); // Debugging
-        console.log(data); // Debugging
-
         if (!response.ok) {
             throw new Error(data.message); // Catch API errors
         }
@@ -38,9 +35,12 @@ async function checkWeather(city) {
         };
         weatherIcon.src = iconMap[weatherCondition] || "images/clouds.png";
 
+        document.querySelector(".weather").style.display = "block";
+        document.querySelector(".error").style.display = "none";
+
     } catch (error) {
-        console.error("Error:", error);
-        alert("Error: " + error.message);
+        document.querySelector(".error").style.display = "block";
+        document.querySelector(".weather").style.display = "none";
     }
 }
 
